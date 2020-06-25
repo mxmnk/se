@@ -1,6 +1,6 @@
 // FREQUENCY COUNTERS
 // This pattern uses objects or sets to collect values/frequencies of values.
-// This can often avoid the need for nested loops or O(N^2) operations with arrays / strings.
+// This can often avoid the need for nested loops or O(N^2) operations with arrays/strings.
 
 // AN EXAMPLE:
 // Write a function called same, which accepts two arrays.
@@ -12,7 +12,8 @@
 // same([1,2,3], [1,9]) // false
 // same([1,2,1], [4,4,1]) // false (must be same frequency)
 
-// A NAIVE SOLUTION:
+// A NAIVE SOLUTION
+// Time Complexity - N^2
 function same(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -27,7 +28,8 @@ function same(arr1, arr2) {
     return true;
 }
 
-// REFACTORED:
+// REFACTORED
+// Time Complexity - O(n)
 function same(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -50,3 +52,37 @@ function same(arr1, arr2) {
     }
     return true;
 }
+
+// ANOTHER EXAMPLE:
+// Given two strings, write a function to determine
+// if the second string is an anagram of the first.
+// An anagram is a word, phrase, or name formed by rearranging the letters of another,
+// such as cinema, formed from iceman.
+
+function validAnagram(first, second) {
+    if (first.length !== second.length) {
+        return false;
+    }
+
+    const lookup = {};
+
+    for (let i = 0; i < first.length; i++) {
+        let letter = first[i];
+        // if letter exists, increment, otherwise set to 1
+        lookup[letter] ? (lookup[letter] += 1) : (lookup[letter] = 1);
+    }
+    console.log(lookup);
+
+    for (let i = 0; i < second.length; i++) {
+        let letter = second[i];
+        // can't find letter or letter is zero then it's not an anagram
+        if (!lookup[letter]) {
+            return false;
+        } else {
+            lookup[letter] -= 1;
+        }
+    }
+
+    return true;
+}
+validAnagram('anagrams', 'nagaramm'); // false
